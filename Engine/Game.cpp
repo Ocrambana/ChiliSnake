@@ -40,6 +40,7 @@ void Game::Go()
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
+	deltaTime = ft.Mark();
 }
 
 void Game::UpdateModel()
@@ -84,15 +85,16 @@ void Game::ManageInput()
 
 void Game::SnakeMovement()
 {
-	snakeMoveCounter += ft.Mark();
-	if (snakeMoveCounter >= std::max(minSnakeMovePeriod, snakeMovePeriod - (score / 50.0f)))
+	snakeMoveCounter += deltaTime;
+	if (snakeMoveCounter >= snakeMovePeriod)
 	{
 		if (nextDeltaLocation != (deltaLocation * - 1))
 		{
 			deltaLocation = nextDeltaLocation;
 		}
 
-		snakeMoveCounter = 0.0f;
+		snakeMoveCounter -= snakeMovePeriod;
+		snakeMovePeriod = std::max(snakeMovePeriod - snakeSpeedUp * deltaTime, minSnakeMovePeriod);
 		const Location next = snake.GetNextHeadLocation(deltaLocation);
 
 		if (!brd.IsInsideBoard(next) ||

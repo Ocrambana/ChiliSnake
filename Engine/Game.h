@@ -32,9 +32,9 @@
 class Game
 {
 public:
-	Game( class MainWindow& wnd );
-	Game( const Game& ) = delete;
-	Game& operator=( const Game& ) = delete;
+	Game(class MainWindow& wnd);
+	Game(const Game&) = delete;
+	Game& operator=(const Game&) = delete;
 	void Go();
 private:
 	void ComposeFrame();
@@ -55,11 +55,13 @@ private:
 	Board brd;
 	std::mt19937 rng;
 	Snake snake;
-	Location deltaLocation = {1,0};
-	Location nextDeltaLocation = {1,0};
-	static constexpr float	snakeMovePeriod = 0.55f,
-							minSnakeMovePeriod = 0.25f;
-	float snakeMoveCounter{ 0.0f };
+	Location deltaLocation = { 1,0 };
+	Location nextDeltaLocation = { 1,0 };
+	static constexpr float	minSnakeMovePeriod{ 0.1f },
+							snakeSpeedUp{0.001f};
+	float	snakeMovePeriod {0.4f},
+			snakeMoveCounter{ 0.0f },
+			deltaTime{ 0.0f };
 	int score{ 0 };
 	Goal goal;
 	bool gameIsOver{ false };

@@ -26,6 +26,7 @@
 #include "Board.h"
 #include "Snake.h"
 #include "Goal.h"
+#include "FrameTimer.h"
 #include <random>
 
 class Game
@@ -48,6 +49,7 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+	FrameTimer ft;
 	/********************************/
 	/*  User Variables              */
 	Board brd;
@@ -55,8 +57,9 @@ private:
 	Snake snake;
 	Location deltaLocation = {1,0};
 	Location nextDeltaLocation = {1,0};
-	static constexpr int snakeMovePeriod = 20;
-	int snakeMoveCounter{ 0 };
+	static constexpr float	snakeMovePeriod = 0.55f,
+							minSnakeMovePeriod = 0.25f;
+	float snakeMoveCounter{ 0.0f };
 	int score{ 0 };
 	Goal goal;
 	bool gameIsOver{ false };

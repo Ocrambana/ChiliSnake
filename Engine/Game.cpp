@@ -21,6 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "SpriteCodex.h"
+#include <algorithm>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -83,15 +84,15 @@ void Game::ManageInput()
 
 void Game::SnakeMovement()
 {
-	snakeMoveCounter++;
-	if (snakeMoveCounter >= snakeMovePeriod - (score / 5))
+	snakeMoveCounter += ft.Mark();
+	if (snakeMoveCounter >= std::max(minSnakeMovePeriod, snakeMovePeriod - (score / 50.0f)))
 	{
-		if (nextDeltaLocation != (deltaLocation * -1))
+		if (nextDeltaLocation != (deltaLocation * - 1))
 		{
 			deltaLocation = nextDeltaLocation;
 		}
 
-		snakeMoveCounter = 0;
+		snakeMoveCounter = 0.0f;
 		const Location next = snake.GetNextHeadLocation(deltaLocation);
 
 		if (!brd.IsInsideBoard(next) ||

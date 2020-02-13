@@ -1,14 +1,17 @@
 #include "Goal.h"
 
-Goal::Goal(std::mt19937 rng, const Board & brd, const Snake & snake)
+Goal::Goal(std::mt19937_64 rng, const Board & brd, const Snake & snake)
+	:
+	xDist(0, brd.GetGridWidth() - 1),
+	yDist(0, brd.GetGridHeight() - 1)
 {
 	Respawn(rng, brd, snake);
 }
 
-void Goal::Respawn(std::mt19937 rng, const Board & brd, const Snake & snake)
+void Goal::Respawn(std::mt19937_64 &rng, const Board & brd, const Snake & snake)
 {
-	std::uniform_int_distribution<int> xDist(0, brd.GetGridWidth() - 1);
-	std::uniform_int_distribution<int> yDist(0, brd.GetGridHeight() - 1);
+	//std::uniform_int_distribution<int> xDist();
+	//std::uniform_int_distribution<int> yDist(0, brd.GetGridHeight() - 1);
 	
 	Location newLoc;
 	do

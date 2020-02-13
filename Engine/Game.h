@@ -53,15 +53,15 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Board brd;
-	std::mt19937 rng;
+	std::mt19937_64 rng;
 	Snake snake;
 	Location deltaLocation = { 1,0 };
 	Location nextDeltaLocation = { 1,0 };
-	static constexpr float	minSnakeMovePeriod{ 0.1f },
-							snakeSpeedUp{0.001f};
+	static constexpr float	minSnakeMovePeriod{ 0.01f },
+							snakeSpeedUp{0.045f};
 	float	snakeMovePeriod {0.4f},
 			snakeMoveCounter{ 0.0f },
-			deltaTime{ 0.0f };
+			deltaTime{ 0.3f };
 	int score{ 0 };
 	Goal goal;
 	bool gameIsOver{ false };

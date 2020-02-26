@@ -97,8 +97,7 @@ void Game::SnakeMovement()
 		snakeMovePeriod = std::max(snakeMovePeriod - snakeSpeedUp * deltaTime, minSnakeMovePeriod);
 		const Location next = snake.GetNextHeadLocation(deltaLocation);
 
-		if (!brd.IsInsideBoard(next) ||
-			snake.IsInTileExceptEnd(next))
+		if (!brd.IsInsideBoard(next) ||	snake.IsInTileExceptEnd(next) || brd.CheckForObstacle(next))
 		{
 			gameIsOver = true;
 			gameIsStarted = false;
@@ -112,6 +111,7 @@ void Game::SnakeMovement()
 				score++;
 				snake.Grow();
 				goal.Respawn(rng, brd, snake);
+				brd.SpawnObstacle(rng, snake, goal);
 			}
 		}
 	}
@@ -125,6 +125,7 @@ void Game::ResetGame()
 	deltaLocation = { 1,0 };
 	gameIsOver = false;
 	gameIsStarted = true;
+	brd.ResetObstacles();
 }
 
 void Game::ComposeFrame()
@@ -137,6 +138,7 @@ void Game::ComposeFrame()
 		brd.DrawBorder();
 		snake.Draw(brd);
 		goal.Draw(brd);
+		brd.DrawObstacles();
 	}
 	else if (gameIsOver)
 	{

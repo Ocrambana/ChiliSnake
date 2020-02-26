@@ -57,7 +57,7 @@ private:
 	Snake snake;
 	Location deltaLocation = { 1,0 };
 	Location nextDeltaLocation = { 1,0 };
-	static constexpr float	minSnakeMovePeriod{ 0.01f },
+	static constexpr float	minSnakeMovePeriod{ 0.03f },
 							snakeSpeedUp{0.045f};
 	float	snakeMovePeriod {0.4f},
 			snakeMoveCounter{ 0.0f },
